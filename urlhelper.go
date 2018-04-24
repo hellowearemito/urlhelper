@@ -66,7 +66,7 @@ func New(host string, baseURL string, scheme string) Helper {
 // params are the query parameters.
 // if absolute is true, an absolute url will be generated, otherwise a root-relative one.
 // scheme specifies the scheme for an absolute url, and is ignored if absolute is false.
-// if scheme is an empty string, it will default to either http or https, depending on h.https
+// if scheme is an empty string, it will default to h.scheme.
 func (h *helper) generate(path string, params []Params, absolute bool, scheme string) string {
 	if !strings.HasPrefix(path, "/") {
 		path = "/" + path
@@ -109,7 +109,7 @@ func (h *helper) Relative(path string, params ...Params) string {
 	return h.generate(path, params, false, "")
 }
 
-// Absolute generates an absolute url with the default scheme
+// Absolute generates an absolute url with the default scheme.
 func (h *helper) Absolute(path string, params ...Params) string {
 	if len(params) > 1 {
 		panic("Helper.Absolute called with multiple params")
@@ -118,7 +118,7 @@ func (h *helper) Absolute(path string, params ...Params) string {
 	return h.generate(path, params, true, "")
 }
 
-// Scheme generates an absolute url with the specified scheme
+// Scheme generates an absolute url with the specified scheme.
 func (h *helper) Scheme(path string, scheme string, params ...Params) string {
 	if len(params) > 1 {
 		panic("Helper.Scheme called with multiple params")
